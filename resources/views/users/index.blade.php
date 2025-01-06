@@ -22,6 +22,12 @@
       </button>
     </div>
   </div>
+
+  @session('status')
+    <div class="alert alert-success">
+      {{ $value }}
+    </div>
+  @endsession
   <!-- /.card-header -->
   <div class="card-body table-responsive p-0">
     <table class="table table-hover text-nowrap">
@@ -40,9 +46,10 @@
           <td>{{ $user->name }}</td>
           <td>{{ $user->email }}</td>
           <td>
-            <a href="#" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
-            <form action="#" method="POST" style="display: inline;">
+            <a href="{{ route('users.edit',$user->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+            <form action="{{ route('users.destroy',$user->id) }}" method="POST" style="display: inline;">
               @csrf
+              @method('DELETE')
               <button type="submit" class="btn btn-danger btn-sm">
                 <i class="fas fa-trash"></i> Excluir
               </button>

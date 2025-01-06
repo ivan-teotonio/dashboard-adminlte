@@ -42,6 +42,22 @@
           </div>
         @enderror
       </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input 
+        type="password" 
+        name="password" 
+        id="password" 
+        class="form-control @error('password') is-invalid @enderror mb-3" 
+        placeholder="Digite a senha"
+        >
+        @error('password')
+          <div class="invalid-feedback">
+            {{ $message }}
+          </div>
+        @enderror
+      </div>
      
       <div class="form-group text-right">
         <button type="submit" class="btn btn-success">Adicionar</button>
