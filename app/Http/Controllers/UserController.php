@@ -6,11 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserProfile;
 use App\Models\Role;
+use Illuminate\Pagination\Paginator;
 class UserController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        $users = User::all();
+        $users = User::query();
+        $users->when($request->keywords,function($query,$keywords){
+            $query->where(function($q) use ($keywords){
+                $q->where('name','like','%'.$keywords.'%')
+                ->orWhere('email','like','%'.$keywords.'%');
+            });
+        });
+        $users = $users->paginate();
         return view('users.index',compact('users'));
     }
 

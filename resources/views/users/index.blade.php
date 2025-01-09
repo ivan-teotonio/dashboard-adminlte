@@ -23,13 +23,31 @@
     </div>
   </div>
 
+
   @session('status')
     <div class="alert alert-success">
       {{ $value }}
     </div>
   @endsession
-  <!-- /.card-header -->
-  <div class="card-body table-responsive p-0">
+
+  @can('destroy', \App\Models\User::class)
+    Posso deletar
+  @endcan
+
+
+  <form action="{{ route('users.index') }}" method="GET" style="width: 300px;">
+    <div class="input-group mb-3 input-group-sm">
+      <input type="text" 
+      name="keywords" 
+      class="form-control" 
+      placeholder="Pesquisar por nome ou email"
+      value="{{ request()?->keywords }}"
+      >
+      <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </div>
+  </form> 
+
+
     <table class="table table-hover text-nowrap">
       <thead>
         <tr>
@@ -57,12 +75,19 @@
           </td>
         </tr>
         @endforeach
+
+        
+       {{ $users->links() }}
       </tbody>
     </table>
+
+    <div class="d-flex justify-content-center">
+       
+    </div>
+    
   </div>
-  <!-- /.card-body -->
+ 
 </div>
-<!-- /.card -->
 
    
 @endsection
